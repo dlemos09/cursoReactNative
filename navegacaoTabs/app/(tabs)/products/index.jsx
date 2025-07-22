@@ -1,10 +1,10 @@
 import{Text, View} from "react-native";
-import {styles} from "../../styles/styles";
+import {styles} from "../../../styles/styles";
 import {Link} from "expo-router";
 
 export default function Products() {
   return (
-    <View style={[styles.container, {backgroundColor: "#12abf7"}]}>
+    <View style={[styles.container, {backgroundColor: "#12abf7ff"}]}>
       <Text>Products Screen</Text>
       <Link push href="/">Home</Link>
 

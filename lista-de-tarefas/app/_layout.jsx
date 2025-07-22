@@ -12,6 +12,8 @@ import logo from "../assets/images/check.png";
 import { colors } from "../constants/colors";
 import Task from "../components/Task";
 import React, { useState } from "react";
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
 
 const initialTasks = [
   { id: 1, completed: true, text: "Estudar React Native" },
@@ -35,6 +37,7 @@ export default function RootLayout() {
   };
 
   return (
+    <GestureHandlerRootView>
     <View style={style.mainContainer}>
       <View style={style.textContainer}>
         <Text style={style.title}>Minhas Tarefas</Text>
@@ -85,10 +88,14 @@ export default function RootLayout() {
         data={tasks}
         // keyExtractor={(item)=> item.id} Não é necessário o id, mas é uma boa prática
         renderItem={({ item }) => (
-          <Task text={item.text} initialCompleted={item.completed} />
+          <Task text={item.text} initialCompleted={item.completed}
+          deleteTask={() => setTasks(tasks.filter((t) => t.id !== item.id))}
+           />
+          
         )}
       />
     </View>
+    </GestureHandlerRootView>
   );
 }
 
