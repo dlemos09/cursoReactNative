@@ -26,6 +26,8 @@ const Stack = createStackNavigator(); // Navegador de pilha
 // ==================== STACK NAVIGATOR PARA A HOME ====================
 // Função que cria um stack navigator para a aba Home
 // Permite navegação entre HomeScreen e AddressScreen
+
+
 function HomeStack({ theme }) {
   return (
     <Stack.Navigator>
@@ -70,9 +72,11 @@ export default function App() {
       })}
     >
       <Tab.Screen name="Home">{() => <HomeStack theme={theme} />}</Tab.Screen>
+
       <Tab.Screen name="Academias Próximas">
         {() => <NearbyGymsScreen theme={theme} />}
       </Tab.Screen>
+      
       <Tab.Screen name="Configurações">
         {() => (
           <SettingsScreen
