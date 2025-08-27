@@ -1,50 +1,149 @@
-# Welcome to your Expo app 👋
+# 📱 Projeto de Estudos em Armazenamento no React Native
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Bem-vindo(a) ao repositório de estudos sobre **armazenamento interno no
+React Native com Expo**!\
+Este projeto foi criado para demonstrar diferentes formas de salvar,
+recuperar e proteger dados em aplicações mobile, utilizando recursos do
+**Expo** e bibliotecas complementares.
 
-## Get started
+------------------------------------------------------------------------
 
-1. Install dependencies
+## 🚀 Sobre o Projeto
 
-   ```bash
-   npm install
-   ```
+Este projeto inclui:
 
-2. Start the app
+-   Uso do **AsyncStorage** para salvar notas simples (não sensíveis).
+-   Uso do **SecureStore** para armazenar de forma segura um PIN de
+    acesso.
+-   Uso do **FileSystem** para criar backups das notas em arquivo
+    `.json`.
+-   Fluxo de autenticação por PIN para proteger as notas.
+-   Funcionalidade para visualizar o backup salvo diretamente no app.
 
-   ```bash
-   npx expo start
-   ```
+Ideal para iniciantes que desejam aprender como lidar com
+**armazenamento no dispositivo** em React Native.
 
-In the output, you'll find options to open the app in a
+------------------------------------------------------------------------
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## 🧠 Estrutura do Projeto
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+  -----------------------------------------------------------------------------
+  Pasta/Arquivo         Descrição
+  --------------------- -------------------------------------------------------
+  `App.js`              Código principal do app (autenticação por PIN, CRUD de
+                        notas, backup).
 
-## Get a fresh project
+  `styles/styles.js`    Estilos utilizados nos componentes da aplicação.
 
-When you're ready, run:
+  `notes-backup.json`   Arquivo gerado pelo app com backup das notas (criado em
+                        tempo de execução).
+  -----------------------------------------------------------------------------
 
-```bash
-npm run reset-project
-```
+------------------------------------------------------------------------
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 🔍 Recursos Demonstrados
 
-## Learn more
+### 🔹 AsyncStorage
 
-To learn more about developing your project with Expo, look at the following resources:
+-   Armazenamento de dados **não sensíveis**.
+-   Utilizado para salvar e recuperar a lista de **notas**.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### 🔹 SecureStore
 
-## Join the community
+-   Armazenamento **seguro e criptografado**.
+-   Utilizado para salvar o **PIN de autenticação** do usuário.
 
-Join our community of developers creating universal apps.
+### 🔹 FileSystem
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+-   Manipulação de arquivos internos do app.
+-   Gera e lê o arquivo `notes-backup.json` contendo as notas salvas.
+
+------------------------------------------------------------------------
+
+## 🛠 Tecnologias Utilizadas
+
+-   [React Native](https://reactnative.dev/)
+-   [Expo](https://expo.dev/)
+-   [@react-native-async-storage/async-storage](https://github.com/react-native-async-storage/async-storage)
+-   [expo-secure-store](https://docs.expo.dev/versions/latest/sdk/securestore/)
+-   [expo-file-system](https://docs.expo.dev/versions/latest/sdk/filesystem/)
+
+------------------------------------------------------------------------
+
+## 📖 Funcionalidades
+
+-   [x] Criar e listar notas\
+-   [x] Persistir notas com **AsyncStorage**\
+-   [x] Configurar PIN de acesso com **SecureStore**\
+-   [x] Exportar backup das notas com **FileSystem**\
+-   [x] Visualizar backup diretamente pelo app
+
+------------------------------------------------------------------------
+
+## ▶️ Como Executar
+
+1.  Clone o repositório:
+
+    ``` bash
+    git clone https://github.com/seuusuario/react-native-storage-demo.git
+    cd react-native-storage-demo
+    ```
+
+2.  Instale as dependências:
+
+    ``` bash
+    npm install
+    ```
+
+3.  Rode no emulador Android (SDK 23+):
+
+    ``` bash
+    npx expo start --android
+    ```
+
+4.  No primeiro acesso, o app pedirá para criar um **PIN de 4
+    dígitos**.\
+
+5.  Após autenticar, será possível criar notas, salvar e visualizar
+    backups.
+
+------------------------------------------------------------------------
+
+## 🧑‍💼 Exemplos de Empresas que usam React Native
+
+-   Facebook\
+-   Instagram\
+-   Discord\
+-   Pinterest\
+-   Uber Eats\
+-   Tesla\
+-   Shopify
+
+------------------------------------------------------------------------
+
+## 🤝 Contribuindo
+
+Contribuições são bem-vindas! Para colaborar:
+
+1.  Faça um fork do projeto\
+2.  Crie uma branch: `git checkout -b minha-feature`\
+3.  Commit suas alterações: `git commit -m 'feat: nova feature'`\
+4.  Envie a branch: `git push origin minha-feature`\
+5.  Abra um Pull Request 🎉
+
+------------------------------------------------------------------------
+
+## 📄 Licença
+
+Este projeto está licenciado sob a **MIT License**.\
+Veja o arquivo [LICENSE](./LICENSE) para mais detalhes.
+
+------------------------------------------------------------------------
+
+## ✍️ Autor
+
+Douglas Lemos --- [GitHub](https://github.com/dlemos09)
+
+------------------------------------------------------------------------
+
+📚 **Bons estudos sobre armazenamento no React Native com Expo!**
