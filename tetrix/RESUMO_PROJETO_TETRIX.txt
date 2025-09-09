@@ -1,0 +1,199 @@
+================================================================================
+                            RESUMO DO PROJETO TETRIX
+================================================================================
+
+DESCRIÇÃO GERAL:
+Tetrix é uma implementação completa do clássico jogo Tetris desenvolvida em 
+React Native usando Expo. O projeto oferece uma experiência de jogo fluida 
+e responsiva com interface moderna e controles intuitivos.
+
+================================================================================
+ESTRUTURA DO PROJETO:
+================================================================================
+
+📁 tetrix/
+├── 📁 app/                     # Telas principais da aplicação
+│   ├── _layout.jsx            # Configuração de navegação (React Navigation)
+│   ├── GameScreen.jsx         # Tela principal do jogo
+│   ├── HomeScreen.jsx         # Menu inicial
+│   └── HistoryScreen.jsx      # Histórico de partidas
+├── 📁 components/             # Componentes reutilizáveis
+│   ├── Board.jsx              # Componente do tabuleiro
+│   └── Cell.jsx               # Componente de célula individual
+├── 📁 styles/                 # Arquivos de estilização
+│   ├── boardStyles.js         # Estilos do tabuleiro
+│   ├── gameStyles.js          # Estilos da tela de jogo
+│   ├── historyStyles.js       # Estilos do histórico
+│   └── homeStyles.js          # Estilos da tela inicial
+├── 📁 utils/                  # Utilitários e lógica do jogo
+│   ├── gameLogic.js           # Lógica principal do Tetris
+│   └── tetrominoes.js         # Definição das peças
+├── package.json               # Dependências e scripts
+└── app.json                   # Configuração do Expo
+
+================================================================================
+FUNCIONALIDADES PRINCIPAIS:
+================================================================================
+
+🎮 JOGO COMPLETO:
+• 7 tipos de peças clássicas do Tetris (I, J, L, O, S, T, Z)
+• Movimento horizontal, rotação e queda rápida
+• Eliminação automática de linhas completas
+• Sistema de pontuação e níveis progressivos
+• Velocidade aumenta com o nível
+• Detecção de game over
+
+🎯 CONTROLES:
+• ◀ Mover para esquerda
+• ▶ Mover para direita  
+• ⤴ Rotacionar peça
+• ↓ Queda rápida (soft drop)
+• Pausar/Retomar jogo
+
+📊 SISTEMA DE PONTUAÇÃO:
+• 100 pontos × nível por linha eliminada
+• 1 ponto por movimento de queda rápida
+• Nível aumenta a cada 4 linhas eliminadas
+• Velocidade aumenta progressivamente
+
+💾 PERSISTÊNCIA DE DADOS:
+• Histórico de partidas salvo localmente (AsyncStorage)
+• Máximo de 50 registros mantidos
+• Dados incluem: data/hora, pontuação final, nível alcançado
+
+🎨 INTERFACE RESPONSIVA:
+• Design adaptável para tablets e smartphones
+• Cores distintivas para cada tipo de peça
+• Preview da próxima peça
+• Informações em tempo real (pontuação, nível, velocidade)
+
+================================================================================
+TECNOLOGIAS UTILIZADAS:
+================================================================================
+
+🚀 CORE:
+• React Native (Framework principal)
+• Expo (Plataforma de desenvolvimento)
+• React Navigation (Navegação entre telas)
+
+📱 COMPONENTES:
+• React Hooks (useState, useEffect, useRef, useCallback)
+• AsyncStorage (Armazenamento local)
+• Dimensões responsivas
+• TouchableOpacity (Botões interativos)
+
+🎨 ESTILIZAÇÃO:
+• StyleSheet API do React Native
+• Design responsivo baseado em dimensões da tela
+• Tema escuro consistente
+• Animações visuais com sombras
+
+================================================================================
+ARQUITETURA DO CÓDIGO:
+================================================================================
+
+📋 PADRÕES UTILIZADOS:
+• Separação clara entre lógica e apresentação
+• Componentes funcionais com hooks
+• Estados bem estruturados e imutáveis
+• Funções puras para lógica do jogo
+
+🔧 OTIMIZAÇÕES:
+• useCallback para funções críticas
+• Cleanup adequado de timers e listeners
+• Gerenciamento eficiente de estados
+• Prevenção de memory leaks
+
+🎯 MODULARIZAÇÃO:
+• Lógica do jogo separada em utils/
+• Componentes reutilizáveis
+• Estilos organizados por funcionalidade
+• Configuração centralizada
+
+================================================================================
+FLUXO DE JOGO:
+================================================================================
+
+1. INICIALIZAÇÃO:
+   - Criação do grid vazio (20x10)
+   - Geração da primeira peça
+   - Configuração dos timers
+
+2. LOOP PRINCIPAL:
+   - Spawn de nova peça no topo
+   - Movimento automático para baixo
+   - Processamento de comandos do usuário
+   - Verificação de colisões
+
+3. FINALIZAÇÃO:
+   - Detecção de game over
+   - Salvamento no histórico
+   - Opções de reinício
+
+4. ELIMINAÇÃO DE LINHAS:
+   - Verificação de linhas completas
+   - Remoção e reposicionamento
+   - Atualização de pontuação
+
+================================================================================
+CARACTERÍSTICAS TÉCNICAS AVANÇADAS:
+================================================================================
+
+🔄 ROTAÇÃO INTELIGENTE:
+• Algoritmo que funciona com peças de qualquer tamanho
+• Wall kick para ajuste automático quando rotação é bloqueada
+• Preservação da forma original das peças
+
+🎮 CONTROLE DE TEMPO:
+• Timer preciso para queda automática
+• Velocidade variável baseada no nível
+• Pause/resume sem perda de estado
+
+📱 RESPONSIVIDADE:
+• Cálculo dinâmico de tamanhos baseado na tela
+• Suporte a tablets e smartphones
+• Proporções mantidas em diferentes resoluções
+
+🔒 ROBUSTEZ:
+• Verificação extensiva de limites
+• Prevenção de estados inválidos
+• Tratamento de erros gracioso
+• Cleanup automático de recursos
+
+================================================================================
+MELHORIAS E EXTENSÕES POSSÍVEIS:
+================================================================================
+
+🚀 FUNCIONALIDADES FUTURAS:
+• Sistema de pontuação global online
+• Múltiplos temas visuais
+• Efeitos sonoros e música
+• Modo multiplayer
+• Configurações de dificuldade
+• Estatísticas detalhadas
+• Power-ups especiais
+
+🎨 MELHORIAS VISUAIS:
+• Animações de eliminação de linhas
+• Partículas e efeitos especiais
+• Transições suaves entre telas
+• Modo escuro/claro
+
+⚡ OTIMIZAÇÕES:
+• Previsão de várias peças
+• Ghost piece (sombra da peça)
+• Hold piece (reservar peça)
+• Hard drop (queda instantânea)
+
+================================================================================
+CONCLUSÃO:
+================================================================================
+
+O Tetrix é uma implementação robusta e bem estruturada do clássico Tetris,
+demonstrando boas práticas de desenvolvimento React Native. O código é
+limpo, bem documentado e facilmente extensível. A arquitetura modular
+permite futuras melhorias sem comprometer a estabilidade do jogo.
+
+O projeto serve como excelente exemplo de como criar jogos mobile completos
+usando React Native, incluindo gerenciamento de estado complexo, animações,
+persistência de dados e interface responsiva.

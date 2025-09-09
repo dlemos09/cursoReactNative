@@ -1,0 +1,306 @@
+================================================================================
+                     GUIA DE DESENVOLVIMENTO - TETRIX
+================================================================================
+
+Este documento serve como guia técnico para desenvolvedores que desejam
+entender, modificar ou expandir o projeto Tetrix.
+
+================================================================================
+ARQUITETURA DETALHADA
+================================================================================
+
+PADRÃO MVC ADAPTADO:
+- Model: utils/gameLogic.js, utils/tetrominoes.js
+- View: components/Board.jsx, components/Cell.jsx
+- Controller: app/GameScreen.jsx
+
+FLUXO DE DADOS:
+1. GameScreen gerencia estado global
+2. gameLogic fornece funções puras
+3. Board renderiza estado visual
+4. Cell representa unidade mínima
+
+GERENCIAMENTO DE ESTADO:
+- useState para estados locais
+- useRef para referências persistentes
+- useCallback para otimização
+- useEffect para efeitos colaterais
+
+================================================================================
+PONTOS CRÍTICOS DO CÓDIGO
+================================================================================
+
+TIMER DE QUEDA:
+```javascript
+useEffect(() => {
+  if (!isRunning || gameOver || !active) {
+    clearInterval(dropRef.current);
+    return;
+  }
+  dropRef.current = setInterval(handleDrop, dropInterval);
+  return () => clearInterval(dropRef.current);
+}, [isRunning, dropInterval, gameOver, active, handleDrop]);
+```
+
+DETECÇÃO DE COLISÃO:
+```javascript
+export function canMove(grid, piece, dx, dy) {
+  const { matrix, x, y } = piece;
+  for (let r = 0; r < matrix.length; r++) {
+    for (let c = 0; c < matrix[r].length; c++) {
+      if (matrix[r][c]) {
+        const newY = y + r + dy;
+        const newX = x + c + dx;
+        // Verificações de limite e colisão
+        if (newX < 0 || newX >= cols) return false;
+        if (newY >= rows) return false;
+        if (newY >= 0 && grid[newY][newX]) return false;
+      }
+    }
+  }
+  return true;
+}
+```
+
+ROTAÇÃO AVANÇADA:
+- Cria matriz quadrada temporária
+- Aplica transformação matemática
+- Extrai área mínima necessária
+- Preserva forma original
+
+================================================================================
+OTIMIZAÇÕES IMPLEMENTADAS
+================================================================================
+
+PERFORMANCE:
+1. useCallback em funções críticas
+2. Keys otimizadas em renderização de listas
+3. Estados imutáveis
+4. Cleanup adequado de recursos
+
+MEMORY MANAGEMENT:
+1. Remoção de timers ao desmontar
+2. Cleanup de listeners de navegação
+3. Evita closures desnecessários
+4. Referências limpas
+
+RENDERIZAÇÃO:
+1. Evita re-renders desnecessários
+2. Componentes pequenos e focados
+3. Props mínimas necessárias
+4. Estilização externa
+
+================================================================================
+ESTRUTURA DE DADOS
+================================================================================
+
+GRID (TABULEIRO):
+- Array bidimensional 20x10
+- Células: 0 (vazio) ou string (cor)
+- Imutável - sempre clonado antes de modificar
+
+PEÇA ATIVA:
+```javascript
+{
+  matrix: [[0,1,1],[1,1,0],[0,0,0]], // Forma da peça
+  color: "#00f000",                   // Cor RGB
+  name: "S",                          // Identificador
+  x: 3,                              // Posição horizontal
+  y: 0                               // Posição vertical
+}
+```
+
+ESTADO DO JOGO:
+```javascript
+{
+  grid: Array[20][10],    // Tabuleiro principal
+  active: Object|null,    // Peça caindo
+  next: Object,           // Próxima peça
+  score: Number,          // Pontuação
+  level: Number,          // Nível atual
+  isRunning: Boolean,     // Estado pause/play
+  gameOver: Boolean,      // Fim de jogo
+  dropInterval: Number    // Velocidade de queda
+}
+```
+
+================================================================================
+ALGORITMOS PRINCIPAIS
+================================================================================
+
+SPAWN DE PEÇA:
+1. Pega próxima peça da fila
+2. Calcula posição X central
+3. Define Y inicial (topo)
+4. Verifica se posição está livre
+5. Game over se posição ocupada
+
+MOVIMENTO:
+1. Calcula nova posição (x+dx, y+dy)
+2. Verifica canMove()
+3. Aplica movimento se válido
+4. Ignora se inválido
+
+QUEDA AUTOMÁTICA:
+1. Tenta mover peça para baixo
+2. Se possível: atualiza posição Y
+3. Se não: merge com grid + spawn nova
+
+ELIMINAÇÃO DE LINHAS:
+1. Verifica cada linha do grid
+2. Identifica linhas completas (sem zeros)
+3. Remove linhas completas
+4. Adiciona linhas vazias no topo
+5. Retorna novo grid + contagem
+
+ROTAÇÃO:
+1. Clona matriz da peça
+2. Aplica transformação 90° horário
+3. Tenta posição atual
+4. Se bloqueado: tenta wall kicks
+5. Aplica primeira posição válida
+
+================================================================================
+PADRÕES DE CODING
+================================================================================
+
+NOMENCLATURA:
+- Componentes: PascalCase (GameScreen)
+- Funções: camelCase (handleDrop)
+- Constantes: UPPER_SNAKE_CASE (GRID_ROWS)
+- Arquivos: camelCase.js
+
+ESTRUTURA DE FUNÇÃO:
+```javascript
+/**
+ * DESCRIÇÃO DA FUNÇÃO
+ * Explicação detalhada do propósito
+ * @param {type} param - Descrição do parâmetro
+ * @returns {type} Descrição do retorno
+ */
+function nomeFuncao(param) {
+  // Validações iniciais
+  if (!param) return defaultValue;
+  
+  // Lógica principal
+  const result = processParam(param);
+  
+  // Retorno
+  return result;
+}
+```
+
+TRATAMENTO DE ERROS:
+```javascript
+try {
+  const data = await AsyncStorage.getItem(key);
+  return JSON.parse(data) || [];
+} catch (error) {
+  console.warn('Erro ao carregar dados:', error);
+  return [];
+}
+```
+
+================================================================================
+DEBUGGING E TESTES
+================================================================================
+
+LOGGING ÚTIL:
+```javascript
+// Estado do jogo
+console.log('Game State:', { grid, active, score, level });
+
+// Movimento de peças
+console.log('Move attempt:', { piece: active, dx, dy, canMove: result });
+
+// Performance
+console.time('renderGrid');
+const result = renderGridWithActive();
+console.timeEnd('renderGrid');
+```
+
+PONTOS DE BREAKPOINT:
+1. spawnPiece() - criação de peças
+2. handleDrop() - lógica de queda
+3. canMove() - detecção de colisão
+4. clearLines() - eliminação de linhas
+5. onGameOver() - fim de jogo
+
+TESTES MANUAIS:
+- Movimento em todas as direções
+- Rotação em diferentes posições
+- Eliminação de 1-4 linhas simultâneas
+- Game over em diferentes cenários
+- Pause/resume durante jogo
+- Histórico de partidas
+
+================================================================================
+MELHORIAS FUTURAS
+================================================================================
+
+FUNCIONALIDADES:
+1. Hard drop (queda instantânea)
+2. Ghost piece (preview de posição)
+3. Hold piece (guardar peça)
+4. Bag randomization (sequência justa)
+5. T-spin detection
+6. Combo multipliers
+
+OTIMIZAÇÕES:
+1. Memoização de renderização
+2. Virtual scrolling para histórico
+3. Preload de próximas peças
+4. Batch updates de estado
+
+ARQUITETURA:
+1. Context API para estado global
+2. Reducer para lógica complexa
+3. Custom hooks para funcionalidades
+4. Testes automatizados
+
+================================================================================
+TROUBLESHOOTING
+================================================================================
+
+PROBLEMA: Jogo não pausa
+SOLUÇÃO: Verificar limpeza de timers em useEffect
+
+PROBLEMA: Peças atravessam bordas
+SOLUÇÃO: Revisar lógica canMove() para verificações de limite
+
+PROBLEMA: Performance ruim
+SOLUÇÃO: Implementar useCallback em funções críticas
+
+PROBLEMA: Estado inconsistente
+SOLUÇÃO: Garantir imutabilidade em updates de estado
+
+PROBLEMA: Memory leak
+SOLUÇÃO: Cleanup de timers e listeners em componentWillUnmount
+
+================================================================================
+RECURSOS EXTERNOS
+================================================================================
+
+DOCUMENTAÇÃO:
+- React Native: https://reactnative.dev/
+- Expo: https://docs.expo.dev/
+- AsyncStorage: https://react-native-async-storage.github.io/
+
+COMUNIDADE:
+- React Native Discord
+- Expo Discord
+- Stack Overflow (tag: react-native)
+
+FERRAMENTAS:
+- Flipper para debugging
+- React DevTools
+- Expo Dev Tools
+
+================================================================================
+CONCLUSÃO
+================================================================================
+
+O Tetrix demonstra uma implementação sólida de um jogo mobile completo em
+React Native. O código segue boas práticas, é bem documentado e facilmente
+extensível. A arquitetura modular permite melhorias incrementais sem
+comprometer a estabilidade do jogo existente.

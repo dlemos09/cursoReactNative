@@ -1,0 +1,249 @@
+================================================================================
+                    DOCUMENTAÇÃO DO PROJETO DE ACESSIBILIDADE
+================================================================================
+
+🎯 OBJETIVO DO PROJETO
+================================================================================
+
+Este projeto demonstra a implementação de funcionalidades avançadas de 
+acessibilidade em aplicações React Native, seguindo as melhores práticas 
+para tornar apps inclusivos e usáveis por pessoas com diferentes 
+necessidades e capacidades.
+
+🏗️ ARQUITETURA E ESTRUTURA
+================================================================================
+
+📁 ESTRUTURA DE PASTAS:
+├── app/                     # Telas principais da aplicação
+│   ├── _layout.jsx         # Layout principal com navegação e estados
+│   ├── HomeScreen.jsx      # Tela inicial com checklist interativo
+│   ├── LockScreen.jsx      # Tela de bloqueio com biometria
+│   └── SettingsScreen.jsx  # Configurações de acessibilidade
+├── components/             # Componentes reutilizáveis
+│   ├── A11yText.jsx       # Texto acessível otimizado
+│   └── BigButton.jsx      # Botão acessível padrão
+└── styles/                # Sistema de estilos dinâmicos
+    ├── theme.js           # Temas (normal e alto contraste)
+    ├── globalStyles.js    # Estilos globais adaptativos
+    ├── homeStyles.js      # Estilos da tela inicial
+    ├── lockStyles.js      # Estilos da tela de bloqueio
+    └── settingsStyles.js  # Estilos das configurações
+
+🔧 FUNCIONALIDADES IMPLEMENTADAS
+================================================================================
+
+1. 🎨 SISTEMA DE TEMAS ADAPTATIVOS
+   • Tema normal com cores suaves
+   • Tema de alto contraste para deficiências visuais
+   • Alternância dinâmica entre temas
+
+2. 📝 CONTROLE DE ESCALA DE FONTE
+   • Escala personalizada (0.8x a 2.0x)
+   • Integração com configurações do sistema
+   • Visualização em tempo real das mudanças
+
+3. 🎯 ALVOS DE TOQUE OTIMIZADOS
+   • Áreas de toque aumentadas quando ativado
+   • Espaçamentos maiores entre elementos
+   • Melhora usabilidade para deficiências motoras
+
+4. 🔐 AUTENTICAÇÃO BIOMÉTRICA ACESSÍVEL
+   • Suporte a impressão digital
+   • Fallback para entrada sem biometria
+   • Anúncios claros do status de autenticação
+
+5. ⏰ SISTEMA DE BLOQUEIO AUTOMÁTICO
+   • Timer de inatividade (30 segundos)
+   • Bloqueio ao ir para background
+   • Anúncios informativos sobre o bloqueio
+
+6. 🗣️ SÍNTESE DE VOZ (TEXT-TO-SPEECH)
+   • Leitura em voz alta usando expo-speech
+   • Funciona independente de leitores de tela
+   • Idioma português brasileiro
+
+7. 📢 INTEGRAÇÃO COM LEITORES DE TELA
+   • Anúncios usando AccessibilityInfo
+   • Propriedades acessíveis adequadas
+   • Gerenciamento de foco para navegação
+
+8. 🦘 SKIP TO CONTENT
+   • Botão para pular para conteúdo principal
+   • Visível apenas com leitor de tela ativo
+   • Facilita navegação para usuários de screen readers
+
+📱 COMPONENTES E SUA FUNÇÃO
+================================================================================
+
+🔹 _layout.jsx (COMPONENTE PRINCIPAL)
+   → Gerencia estados globais de acessibilidade
+   → Controla navegação entre telas
+   → Implementa timer de inatividade
+   → Gerencia foco para leitores de tela
+
+🔹 HomeScreen.jsx (TELA INICIAL)
+   → Lista interativa de tarefas (checkboxes)
+   → Demonstra anúncios para leitores de tela
+   → Botão de síntese de voz para resumo
+   → Elementos totalmente acessíveis
+
+🔹 LockScreen.jsx (TELA DE BLOQUEIO)
+   → Autenticação biométrica opcional
+   → Entrada alternativa sem biometria
+   → Detecção de disponibilidade de hardware
+   → Anúncios informativos sobre o processo
+
+🔹 SettingsScreen.jsx (CONFIGURAÇÕES)
+   → Controles para escala de fonte
+   → Toggle de alto contraste
+   → Toggle de alvos de toque grandes
+   → Amostra visual das configurações
+
+🔹 BigButton.jsx (BOTÃO ACESSÍVEL)
+   → Área de toque otimizada
+   → Propriedades de acessibilidade completas
+   → Suporte a diferentes roles
+   → Feedback tátil (ripple) no Android
+
+🔹 A11yText.jsx (TEXTO ACESSÍVEL)
+   → Respeita configurações de fonte do sistema
+   → Evita leitura duplicada por leitores de tela
+   → Base para textos consistentes
+
+🎨 SISTEMA DE ESTILOS DINÂMICOS
+================================================================================
+
+O projeto utiliza um sistema de estilos que se adapta automaticamente:
+
+• TEMA: Normal ou alto contraste
+• ESCALA: Multiplicador de fonte (0.8x a 2.0x)
+• ALVOS: Tamanhos de toque normais ou grandes
+
+Cada arquivo de estilo recebe esses parâmetros e gera estilos adequados,
+garantindo que toda a interface se adapte às necessidades do usuário.
+
+🔧 TECNOLOGIAS E BIBLIOTECAS
+================================================================================
+
+📦 PRINCIPAIS DEPENDÊNCIAS:
+• expo-local-authentication: Autenticação biométrica
+• expo-speech: Síntese de voz
+• react-native (AccessibilityInfo): APIs de acessibilidade
+• expo-router: Navegação baseada em arquivos
+
+🗂️ ARQUIVO DE CONFIGURAÇÃO (app.json):
+O arquivo app.json configura o projeto Expo com:
+• name/slug: Identificação do app
+• orientation: "portrait" - orientação fixa
+• userInterfaceStyle: "automatic" - suporte a modo escuro
+• newArchEnabled: true - nova arquitetura React Native
+• plugins: expo-router, expo-splash-screen, expo-local-authentication, expo-speech
+• Configurações específicas para iOS, Android e Web
+
+🎯 APIS DE ACESSIBILIDADE UTILIZADAS:
+• AccessibilityInfo.announceForAccessibility()
+• AccessibilityInfo.setAccessibilityFocus()
+• AccessibilityInfo.isScreenReaderEnabled()
+• AccessibilityInfo.addEventListener()
+
+🏷️ PROPRIEDADES ACESSÍVEIS IMPLEMENTADAS:
+• accessibilityRole: Define o tipo de elemento
+• accessibilityLabel: Texto lido pelo leitor de tela
+• accessibilityHint: Instruções sobre o que o elemento faz
+• accessibilityState: Estado atual (checked, selected, etc.)
+• accessibilityElementsHidden: Oculta elementos decorativos
+
+🧪 COMO TESTAR A ACESSIBILIDADE
+================================================================================
+
+1. 📱 LEITORES DE TELA:
+   Android: Ative o TalkBack nas configurações
+   iOS: Ative o VoiceOver nas configurações
+
+2. 🔍 CONFIGURAÇÕES DE SISTEMA:
+   • Teste diferentes tamanhos de fonte
+   • Ative alto contraste do sistema
+   • Use ampliação de tela
+
+3. ⌨️ NAVEGAÇÃO:
+   • Teste navegação apenas com gestos
+   • Verifique foco e ordem de leitura
+   • Teste funcionalidade do skip to content
+
+4. 🎤 SÍNTESE DE VOZ:
+   • Teste o botão "Ler resumo" na tela inicial
+   • Verifique anúncios automáticos
+   • Teste com e sem leitores de tela
+
+📋 BOAS PRÁTICAS DEMONSTRADAS
+================================================================================
+
+✅ ESTRUTURA SEMÂNTICA:
+• Uso correto de accessibilityRole
+• Agrupamento lógico de elementos
+• Headers e landmarks apropriados
+
+✅ FEEDBACK INFORMATIVO:
+• Anúncios claros sobre mudanças de estado
+• Confirmações de ações realizadas
+• Instruções de uso quando necessário
+
+✅ NAVEGAÇÃO EFICIENTE:
+• Skip links para conteúdo principal
+• Gerenciamento inteligente de foco
+• Ordem lógica de navegação
+
+✅ DESIGN INCLUSIVO:
+• Alvos de toque adequados (mín. 44dp)
+• Contraste suficiente em todos os temas
+• Suporte a diferentes escalas de fonte
+
+✅ ESTADOS CLAROS:
+• Indicação visual e auditiva de estados
+• Feedback para ações do usuário
+• Status de carregamento quando aplicável
+
+🎓 CONCEITOS DE ACESSIBILIDADE ABORDADOS
+================================================================================
+
+🔹 WCAG 2.1 PRINCIPLES:
+• Perceptible: Alto contraste, escalas de fonte
+• Operable: Alvos grandes, navegação por teclado
+• Understandable: Linguagem clara, instruções
+• Robust: Compatibilidade com tecnologias assistivas
+
+🔹 DEFICIÊNCIAS CONTEMPLADAS:
+• Visual: Alto contraste, escala de fonte, leitores de tela
+• Motora: Alvos de toque grandes, tempos adequados
+• Auditiva: Feedback visual para informações sonoras
+• Cognitiva: Interface simples, instruções claras
+
+🚀 EXECUTANDO O PROJETO
+================================================================================
+
+1. INSTALAÇÃO:
+   npm install
+
+2. EXECUÇÃO:
+   npm start
+
+3. TESTE EM DISPOSITIVO:
+   • Escaneie QR code com Expo Go
+   • Ou use emulador Android/iOS
+
+4. CONFIGURAÇÃO DE ACESSIBILIDADE:
+   • Ative leitores de tela no dispositivo
+   • Teste diferentes configurações de sistema
+   • Experimente todas as funcionalidades
+
+📚 RECURSOS PARA APRENDIZADO
+================================================================================
+
+• React Native Accessibility Guide
+• WCAG 2.1 Guidelines
+• Expo Accessibility Documentation
+• Platform-specific guidelines (iOS/Android)
+
+Este projeto serve como referência completa para implementação de
+acessibilidade em aplicações React Native, demonstrando desde conceitos
+básicos até funcionalidades avançadas de inclusão digital.
